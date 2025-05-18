@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Information</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Default body font */
+            margin: 20px;
+            background-color: #00344a;
+        }
+        h1 {
+            color: whitesmoke;
+            text-align: center;
+            font-family: Comfortaa, sans-serif;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+            font-family: 'Comfortaa', sans-serif; /* Apply Comfortaa to labels */
+        }
+        input[type="text"],
+        input[type="url"] {
+            width: calc(100% - 20px); /* Adjust for padding */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: medium;
+            font-family: 'Comfortaa', sans-serif;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+        textarea {
+            width: calc(100% - 20px); /* Adjust for padding */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            font-family: 'Comfortaa', sans-serif; /* Apply Comfortaa to textareas */
+            font-size: medium;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px; /* Add some spacing between buttons */
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #clearButton {
+            background-color: #6c757d; /* Grey color for clear button */
+        }
+        #clearButton:hover {
+            background-color: #545b62;
+        }
+        #copyConfirmation {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body>
+<h1>Vacasa Notes Generator</h1>
+<form id="contactForm">
+    <div>
+        <label for="contactName">Contact Name:</label><br>
+        <input type="text" id="contactName" name="contactName" required>
+    </div>
+    <div>
+        <label for="reason">Reason for call/text/email:</label><br>
+        <textarea id="reason" name="reason" rows="3"></textarea>
+    </div>
+    <div>
+        <label for="ticketLink">Ticket Link (existing or new):</label><br>
+        <input type="url" id="ticketLink" name="ticketLink">
+    </div>
+    <div>
+        <label>Is follow-up needed?</label><br>
+        <input type="radio" id="followUpYes" name="followUp" value="Yes">
+        <label for="followUpYes">Yes</label>
+        <input type="radio" id="followUpNo" name="followUp" value="No" checked>
+        <label for="followUpNo">No</label>
+    </div>
+    <div>
+        <label for="expectations">Expectations set with guests:</label><br>
+        <textarea id="expectations" name="expectations" rows="3"></textarea>
+    </div>
+    <div>
+        <label for="interactionDetails">Interaction Details:</label><br>
+        <textarea id="interactionDetails" name="interactionDetails" rows="5"></textarea>
+    </div>
+    <div class="button-container">
+        <button type="submit">Copy Data</button>
+        <button type="button" id="clearButton">Clear Text Areas</button>
+    </div>
+    <div id="copyConfirmation">
+        Data copied to clipboard!
+    </div>
+</form>
+
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const contactName = document.getElementById('contactName').value;
+        const reason = document.getElementById('reason').value;
+        const ticketLink = document.getElementById('ticketLink').value;
+        const followUp = document.querySelector('input[name="followUp"]:checked').value;
+        const expectations = document.getElementById('expectations').value;
+        const interactionDetails = document.getElementById('interactionDetails').value;
+
+        const formattedData = `
+Contact Name: ${contactName}
+Reason for call/text/email: ${reason}
+Ticket Link (existing or new): ${ticketLink}
+Is follow-up needed? ${followUp}
+Expectations set with guests: ${expectations}
+Interaction Details: ${interactionDetails}
+            `.trim();
+
+        navigator.clipboard.writeText(formattedData)
+            .then(() => {
+                const confirmationDiv = document.getElementById('copyConfirmation');
+                confirmationDiv.style.display = 'block';
+                setTimeout(() => {
+                    confirmationDiv.style.display = 'none';
+                }, 3000);
+            })
+            .catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy data. Please try again or copy manually.');
+            });
+    });
+
+    document.getElementById('clearButton').addEventListener('click', function() {
+        const textAreas = document.querySelectorAll('textarea');
+        textAreas.forEach(textArea => {
+            textArea.value = '';
+        });
+
+        document.getElementById('contactName').value = '';
+        document.getElementById('reason').value = '';
+        document.getElementById('ticketLink').value = '';
+        document.getElementById('expectations').value = '';
+        document.getElementById('interactionDetails').value = '';
+    });
+</script>
+</body>
+</html>
