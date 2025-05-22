@@ -90,6 +90,15 @@
             border-radius: 4px;
             display: none; /* Hidden by default */
         }
+
+        footer {
+            /* ... other styles ... */
+            text-align: center; /* This centers inline-level content (like text and links) */
+            display: flex;       /* This makes the footer a flex container */
+            flex-direction: column; /* This stacks its direct children vertically */
+            align-items: center; /* This centers the flex items (your <p> tags) horizontally within the footer */
+            /* ... other styles ... */
+        }
     </style>
 </head>
 <body>
@@ -178,5 +187,9 @@ Interaction Details: ${interactionDetails}
         document.getElementById('interactionDetails').value = '';
     });
 </script>
+<footer>
+    <p>&copy; 2025 Vacasa Notes Generator. All rights reserved.</p>
+    <pre>Created with &#x2764; by Kevin Hernández</pre>
+</footer>
 </body>
 </html>
