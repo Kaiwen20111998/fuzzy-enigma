@@ -28,11 +28,11 @@ This project provides a simple HTML webpage for capturing contact information. I
 
 ## Setup
 
-To use this form, simply save the provided HTML code as a `.html` file (e.g., `contact_form.html`) and open it in a web browser.
+To use this form, simply save the provided HTML code as a `.html` file (e.g., `index.html`) and open it in a web browser.
 
 ## Usage
 
-1.  Open the `contact_form.html` file in your web browser.
+1.  Open the `index.html` file in your web browser.
 2.  Fill out the form fields with the relevant contact information.
 3.  Click the "Copy Data" button to copy the entered information to your clipboard. A confirmation message will appear briefly.
 4.  Paste the copied data into any text editor, email, or other application.
