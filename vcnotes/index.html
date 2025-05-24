@@ -2,65 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Notes Generator</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif; /* Default body font */
-            margin: 20px;
+            margin: 0; /* Remove default body margin */
+            padding: 0 20px; /* Apply horizontal padding for overall page spacing */
             background-color: #00344a;
+
+            /* Grid properties for sticky footer */
+            display: block;
+            min-height: 100dvh; /* Ensures body takes full viewport height */
+            grid-template-rows: auto 1fr auto; /* Header, flexible content, footer */
+            box-sizing: border-box; /* Include padding in height calculation */
         }
+
         h1 {
             color: whitesmoke;
             text-align: center;
             font-family: Comfortaa, sans-serif;
+            padding-top: 10px; /* Space above the heading */
+            margin-bottom: 20px; /* Space below the heading */
         }
+
         form {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto; /* Centers the form horizontally */
         }
+
         div {
             margin-bottom: 15px;
         }
+
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
             color: #555;
-            font-family: 'Comfortaa', sans-serif; /* Apply Comfortaa to labels */
+            font-family: 'Comfortaa', sans-serif;
         }
+
         input[type="text"],
-        input[type="url"] {
-            width: calc(100% - 20px); /* Adjust for padding */
+        input[type="url"] { /* Keep type="url" if you want URL specific keyboard/semantics */
+            width: calc(100% - 20px);
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: medium;
             font-family: 'Comfortaa', sans-serif;
-            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            box-sizing: border-box;
         }
+
         textarea {
-            width: calc(100% - 20px); /* Adjust for padding */
+            width: calc(100% - 20px);
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            box-sizing: border-box; /* Include padding and border in the element's total width and height */
-            font-family: 'Comfortaa', sans-serif; /* Apply Comfortaa to textareas */
+            box-sizing: border-box;
+            font-family: 'Comfortaa', sans-serif;
             font-size: medium;
         }
+
         input[type="radio"] {
             margin-right: 5px;
         }
+
         .button-container {
             margin-top: 20px;
         }
+
         button {
             background-color: #007bff;
             color: white;
@@ -70,17 +88,21 @@
             cursor: pointer;
             font-size: 16px;
             font-family: Comfortaa, sans-serif;
-            margin-right: 10px; /* Add some spacing between buttons */
+            margin-right: 10px;
         }
+
         button:hover {
             background-color: #0056b3;
         }
+
         #clearButton {
-            background-color: #6c757d; /* Grey color for clear button */
+            background-color: #6c757d;
         }
+
         #clearButton:hover {
             background-color: #545b62;
         }
+
         #copyConfirmation {
             margin-top: 15px;
             padding: 10px;
@@ -88,19 +110,38 @@
             color: #155724;
             border: 1px solid #c3e6cb;
             border-radius: 4px;
-            display: none; /* Hidden by default */
+            display: none;
         }
 
+        /* Footer Styling */
         footer {
-            /* ... other styles ... */
-            text-align: center; /* This centers inline-level content (like text and links) */
-            display: flex;       /* This makes the footer a flex container */
-            flex-direction: column; /* This stacks its direct children vertically */
-            align-items: center; /* This centers the flex items (your <p> tags) horizontally within the footer */
-            color: white;
+            margin-top: 40px; /* Space above the footer */
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7); /* Softer white */
             font-family: Comfortaa, sans-serif;
-            font-weight: bold;
-            /* ... other styles ... */
+            font-size: 0.85em; /* Slightly smaller font */
+            padding: 20px 0; /* Vertical padding */
+            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle top border */
+
+            /* Flexbox for internal content centering */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        footer p {
+            margin: 0; /* Remove default paragraph margins */
+            font-weight: normal; /* Ensure consistent font weight */
+        }
+
+        footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -109,34 +150,35 @@
 <form id="contactForm">
     <div>
         <label for="contactName">Contact Name:</label><br>
-        <input type="text" id="contactName" name="contactName" required>
+        <input autocomplete="off" id="contactName" name="contactName" required spellcheck="true" type="text">
     </div>
     <div>
         <label for="reason">Reason for call/text/email:</label><br>
-        <textarea id="reason" name="reason" rows="3" required></textarea>
+        <textarea autocomplete="off" id="reason" name="reason" required rows="3" spellcheck="true"></textarea>
     </div>
     <div>
         <label for="ticketLink">Ticket Link (existing or new):</label><br>
-        <input type="text" id="ticketLink" name="ticketLink" required>
-    </div>
+        <input autocomplete="off" id="ticketLink" name="ticketLink" required spellcheck="true" type="text"></div>
     <div>
         <label>Is follow-up needed?</label><br>
-        <input type="radio" id="followUpYes" name="followUp" value="Yes">
+        <input id="followUpYes" name="followUp" type="radio" value="Yes">
         <label for="followUpYes">Yes</label>
-        <input type="radio" id="followUpNo" name="followUp" value="No" checked>
+        <input checked id="followUpNo" name="followUp" type="radio" value="No">
         <label for="followUpNo">No</label>
     </div>
     <div>
         <label for="expectations">Expectations set with guests:</label><br>
-        <textarea id="expectations" name="expectations" rows="3" required></textarea>
+        <textarea autocomplete="off" id="expectations" name="expectations" required rows="3"
+                  spellcheck="true"></textarea>
     </div>
     <div>
         <label for="interactionDetails">Interaction Details:</label><br>
-        <textarea id="interactionDetails" name="interactionDetails" rows="5" required></textarea>
+        <textarea autocomplete="off" id="interactionDetails" name="interactionDetails" required rows="5"
+                  spellcheck="true"></textarea>
     </div>
     <div class="button-container">
         <button type="submit">Copy Data</button>
-        <button type="button" id="clearButton">Clear Text Areas</button>
+        <button id="clearButton" type="button">Clear Text Areas</button>
     </div>
     <div id="copyConfirmation">
         Data copied to clipboard!
@@ -144,12 +186,21 @@
 </form>
 
 <script>
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
+    document.addEventListener('DOMContentLoaded', function () {
+        // Dynamic Copyright Year
+        const currentYearSpan = document.getElementById('currentYear');
+        // Check if the element was found before trying to use it
+        if (currentYearSpan) {
+            currentYearSpan.textContent = new Date().getFullYear().toString();
+        }
+    });
+
+    document.getElementById('contactForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
         const contactName = document.getElementById('contactName').value;
         const reason = document.getElementById('reason').value;
-        const ticketLink = document.getElementById('ticketLink').value;
+        const ticketLink = document.getElementById('ticketLink').value.trim(); // Trim whitespace
         const followUp = document.querySelector('input[name="followUp"]:checked').value;
         const expectations = document.getElementById('expectations').value;
         const interactionDetails = document.getElementById('interactionDetails').value;
@@ -177,22 +228,29 @@ Interaction Details: ${interactionDetails}
             });
     });
 
-    document.getElementById('clearButton').addEventListener('click', function() {
+    document.getElementById('clearButton').addEventListener('click', function () {
+        // Clear all text areas
         const textAreas = document.querySelectorAll('textarea');
         textAreas.forEach(textArea => {
             textArea.value = '';
         });
 
+        // Clear specific text/url inputs
         document.getElementById('contactName').value = '';
-        document.getElementById('reason').value = '';
         document.getElementById('ticketLink').value = '';
+        document.getElementById('reason').value = ''; // Ensure this is cleared if it's not a textarea
         document.getElementById('expectations').value = '';
         document.getElementById('interactionDetails').value = '';
+
+        // Reset the radio button to 'No'
+        document.getElementById('followUpNo').checked = true;
     });
 </script>
+
 <footer>
-    <p>&copy; 2025 Vacasa Notes Generator. All rights reserved.</p>
+    <p>&copy; <span id="currentYear"></span> Vacasa Notes Generator. All rights reserved.</p>
     <p>Created with &#x2764;&#xfe0f; by Kevin Hernández</p>
 </footer>
+
 </body>
 </html>
